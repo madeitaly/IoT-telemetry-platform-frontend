@@ -2,15 +2,17 @@
 //import React, { useEffect, useState } from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+//import axios from 'axios';
+import API from "../api/axiosConfig";
 
 const DeviceDetails = () => {
     const { id } = useParams(); // Gets the ID from the URL
     const [data, setData] = useState<any>(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/devices/telemetry/${id}`)
-        .then(res => setData(res.data));
+        API.get(`api/devices/telemetry/${id}`)
+        .then(res => setData(res.data))
+        .catch(err => console.error(err));
     }, [id]);
 
     if (!data) return <p>Loading telemetry...</p>;

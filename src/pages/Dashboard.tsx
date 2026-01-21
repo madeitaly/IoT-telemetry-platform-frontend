@@ -2,18 +2,15 @@
 
 //import React, { useEffect, useState} from "react";
 import { useEffect, useState} from "react";
-//import API from "../api/axiosConfig";
-import axios from "axios";
+import API from "../api/axiosConfig";
+//import axios from "axios";
 import {Link} from "react-router-dom";
 
 const Dashboard = () => {
     const [devices, setDevices] = useState([]);
 
     useEffect(() => {
-        // Replace with your Express URL
-        axios.get('http://localhost:3000/api/devices', {
-            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        })
+        API.get('/api/devices')
         .then(res => setDevices(res.data))
         .catch(err => console.error(err));
     }, []); 
