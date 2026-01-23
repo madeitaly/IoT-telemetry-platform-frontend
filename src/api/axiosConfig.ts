@@ -12,9 +12,12 @@ API.interceptors.request.use(
         // 1. Grab the token from localStorage
         const token = localStorage.getItem("token");
 
+        // DEBUGGING LOG:
+        console.log("🚀 Interceptor is adding token:", token);
+
         // 2. If it exists, add it to the 'Authorization' header
         if(token) {
-            config.headers.Authorization = 'Bearer ${token}';
+            config.headers.Authorization = `Bearer ${token}`;
         }
 
         return config

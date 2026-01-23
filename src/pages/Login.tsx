@@ -13,8 +13,16 @@ const Login = () => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:3000/auth/login', { email, password });
-            login(response.data.token); // Save the token globally
-            navigate('/dashboard');     // Go to the device list
+            
+            // Deconstruct the response based on your backend JSON
+            const { token, user } = response.data;
+
+            // Pass both pieces of data to our Context
+            login(token, user);
+
+            // Go to the device list
+            navigate('/dashboard');
+
         } catch (err) {
             alert("Invalid credentials");
         }
