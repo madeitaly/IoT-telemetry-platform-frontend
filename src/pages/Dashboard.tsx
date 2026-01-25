@@ -88,6 +88,14 @@ const Dashboard = () => {
                             >
                                 View Data
                             </Link>
+
+                            <Link 
+                                to={`/edit-device/${device.id}`} 
+                                className="font-medium text-amber-600 hover:underline"
+                            >
+                                Edit
+                            </Link>
+                            
                             </td>
                         </tr>
                         ))}
