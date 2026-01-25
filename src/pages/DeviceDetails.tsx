@@ -5,8 +5,12 @@ import { useParams, useNavigate } from 'react-router-dom'; // Hooks for URL hand
 import API from "../api/axiosConfig";
 import type { Device } from '../interfaces/Device';
 import type { Telemetry } from '../interfaces/Telemetry';
+import { useAuth } from '../context/AuthContext';
 
 const DeviceDetails = () => {
+
+    const { user } = useAuth(); // Make sure to get 'user' from context
+
     const { id } = useParams(); // Gets the ID from the URL
     const navigate = useNavigate();
 
@@ -16,13 +20,13 @@ const DeviceDetails = () => {
 
     useEffect(() => {
 
-        if (!id) return;
+        if (!id || !user?.id) return; // Wait for both Device ID and User ID
 
         // We use Promise.all to fetch both "Header info" and "Table data" at the same time
         const fetchData = async () => {
             try {
                 const [deviceRes, telemetryRes] = await Promise.all([
-                    API.get(`/api/devices/${id}`),             // Get name, serial, etc.
+                    API.get(`/api/devices/${user.id}/${id}`),             // Get name, serial, etc.
                     API.get(`/api/telemetry/${id}`)    // Get the array of data points
                 ]);
                 setDevice(deviceRes.data);

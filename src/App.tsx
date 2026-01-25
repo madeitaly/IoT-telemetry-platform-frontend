@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import DeviceDetails from './pages/DeviceDetails';
+import CreateDevice from './pages/CreateDevice';
 
 // A helper to protect routes from unlogged users
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
@@ -31,6 +32,7 @@ function App() {
           
           {/* Only logged-in users can see these */}
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/create-device" element={<PrivateRoute><CreateDevice /></PrivateRoute>} />
           <Route path="/device/:id" element={<PrivateRoute><DeviceDetails /></PrivateRoute>} />
           
           {/* Default to login */}

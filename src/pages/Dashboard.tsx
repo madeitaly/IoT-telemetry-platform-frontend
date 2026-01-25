@@ -16,9 +16,7 @@ const Dashboard = () => {
     useEffect(() => {
         if (user?.id) {
             // ⚠️ sending body in GET via 'data' property
-            API.get('api/devices', {
-                data: { ownerId: user.id } 
-            })
+            API.get(`/api/devices/${user.id}`)
             .then((res) => {
                 setDevices(res.data);
                 setLoading(false);
@@ -40,8 +38,17 @@ const Dashboard = () => {
 
     return (
         <div className="p-8 max-w-6xl mx-auto">
-            <h1 className="text-2xl font-bold mb-6">Device Management</h1>
-            
+            <div className="flex justify-between items-center mb-6">
+                <h1 className="text-2xl font-bold mb-6">Device Management</h1>
+
+                <Link 
+                    to="/create-device" 
+                    className="bg-green-600 text-white px-4 py-2 rounded shadow hover:bg-green-700 transition"
+                >
+                    + Add New Device
+                </Link>
+            </div>
+
             <div className="overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left text-gray-500">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -89,7 +96,7 @@ const Dashboard = () => {
                 
                 {devices.length === 0 && (
                     <div className="p-4 text-center text-gray-500">
-                        No devices found.
+                        No devices found. Click "Add New Device" to start.
                     </div>
                 )}
             </div>
