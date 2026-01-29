@@ -6,6 +6,7 @@ import API from "../api/axiosConfig";
 import { useAuth } from '../context/AuthContext';
 import type { Device } from '../interfaces/Device';
 import {Link} from "react-router-dom";
+import { Trash2 } from "lucide-react"; // Import the Bin Icon
 
 const Dashboard = () => {
 
@@ -15,7 +16,6 @@ const Dashboard = () => {
 
     useEffect(() => {
         if (user?.id) {
-            // ⚠️ sending body in GET via 'data' property
             API.get(`/api/devices/${user.id}`)
             .then((res) => {
                 setDevices(res.data);
@@ -28,6 +28,26 @@ const Dashboard = () => {
         }
     }, [user]); 
     
+    // Handle Delete Logic
+    const handleDelete = async (deviceId: number) => {
+        // 1. Confirm with the user
+        if (!window.confirm("Are you sure you want to delete this device? This cannot be undone.")) {
+            return;
+        }
+
+        try {
+            // 2. Call the API (Assuming your backend supports DELETE /api/devices/:userId/:deviceId)
+            await API.delete(`/api/devices/${user?.id}/${deviceId}`);
+
+            // 3. Update the UI locally (Remove the deleted item from the list)
+            setDevices(prevDevices => prevDevices.filter(d => d.id !== deviceId));
+            
+        } catch (err) {
+            console.error("Delete failed", err);
+            alert("Failed to delete device.");
+        }
+    };
+
     // Helper to format dates cleanly
     const formatDate = (dateString: string | null) => {
         if (!dateString) return <span className="text-gray-400">Never</span>;
@@ -96,6 +116,14 @@ const Dashboard = () => {
                                 Edit
                             </Link>
                             
+                            <button 
+                                onClick={() => handleDelete(device.id)}
+                                className="text-red-600 hover:text-red-900 transition-colors p-1 rounded hover:bg-red-50"
+                                title="Delete Device"
+                            >
+                                <Trash2 size={18} />
+                            </button>
+
                             </td>
                         </tr>
                         ))}
