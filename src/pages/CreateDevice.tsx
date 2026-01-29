@@ -19,10 +19,12 @@ const CreateDevice = () => {
         if (!user?.id) return alert("User not identified");
 
         try {
-            // Requirement 4: POST to api/devices/:userId
-            await API.post(`/api/devices/${user.id}`, formData);
+            // POST to api/devices/:userId
+            const response = await API.post(`/api/devices/${user.id}`, formData);
             
-            alert("Device created successfully!");
+            const jsonString = JSON.stringify(response.data, null, 2);
+
+            alert("Device created successfully!\n\nBackend Response:\n" + jsonString);
             navigate('/dashboard'); // Go back to the list
         } catch (err) {
             console.error(err);
