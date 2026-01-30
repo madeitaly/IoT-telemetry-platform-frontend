@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import API from "../api/axiosConfig";
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -11,7 +11,7 @@ const Register = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault(); // Prevents the browser from reloading the page
         try {
-            const response = await axios.post('http://localhost:3000/auth/register', formData);
+            const response = await API.post('/auth/register', formData);
 
             // Deconstruct the response based on your backend JSON
             const { token, user } = response.data;

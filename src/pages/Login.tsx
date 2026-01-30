@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import API from "../api/axiosConfig";
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ const Login = () => {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:3000/auth/login', { email, password });
+            const response = await API.post('/auth/login', { email, password });
             
             // Deconstruct the response based on your backend JSON
             const { token, user } = response.data;
