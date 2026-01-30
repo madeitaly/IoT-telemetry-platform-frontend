@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create an instance so we don't pollute the global axios object
 const API = axios.create({
-    baseURL: "http://localhost:3000/"  // Your Express base URL
+    baseURL: import.meta.env.VITE_API_URL  // Your Express base URL
 })
 
 // The "Request Interceptor"
