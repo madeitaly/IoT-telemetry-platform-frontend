@@ -10,6 +10,7 @@ import DeviceDetails from './pages/DeviceDetails';
 import CreateDevice from './pages/CreateDevice';
 import EditDevice from './pages/EditDevice';
 import ProfilePage from './pages/ProfilePage';
+import LiveDashboard from './pages/LiveDashboard';
 
 // A helper to protect routes from unlogged users
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/profile/:userId" element={<PrivateRoute><ProfilePage /></PrivateRoute>} />
           <Route path="/device/:id" element={<PrivateRoute><DeviceDetails /></PrivateRoute>} />
           <Route path="/edit-device/:id" element={<PrivateRoute><EditDevice /></PrivateRoute>} />
+          <Route path="/live/:id" element={<PrivateRoute><LiveDashboard /></PrivateRoute>} />
           
           {/* Default to login */}
           <Route path="/" element={<Navigate to="/login" />} />

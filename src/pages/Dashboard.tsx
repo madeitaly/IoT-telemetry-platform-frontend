@@ -110,6 +110,13 @@ const Dashboard = () => {
                             </Link>
 
                             <Link 
+                                to={`/live/${device.id}`} 
+                                className="font-medium text-indigo-600 hover:underline flex items-center gap-1"
+                            >
+                                Live View
+                            </Link>
+
+                            <Link 
                                 to={`/edit-device/${device.id}`} 
                                 className="font-medium text-amber-600 hover:underline"
                             >
